@@ -1,0 +1,53 @@
+from exceptions.ProductNotFound import ProductNotFoundException
+from src.ProductClass import Product
+
+
+class Category:
+    """
+    Category class. Attributes: name, description, products, count_category, count_products
+    """
+
+    name: str
+    description: str
+    __products: list
+    category_count: int = 0
+    product_count: int = 0
+
+    def __init__(self, name: str, description: str, products: list[Product]):
+        self.name = name
+        self.description = description
+        self.__products = products
+        Category.product_count += len(products)
+        Category.category_count += 1
+
+    def __str__(self) -> str:
+        return f"{self.name}, количество продуктов: {Category.product_count} шт.\n"
+
+    @property
+    def products(self):
+        product_list = ""
+        for product in self.__products:
+            product_list += str(product)
+        return product_list
+
+    def add_product(self, product: Product):
+        if issubclass(product.__class__, Product):
+            self.__products.append(product)
+            Category.product_count += 1
+        else:
+            raise TypeError
+
+    @property
+    def total_price(self):
+        if len(self.__products) < 1:
+            raise ProductNotFoundException
+        return sum(product.price for product in self.__products)
+
+    def middle_price(self):
+        try:
+            res = self.total_price / len(self.__products)
+        except Exception as e:
+            print(e)
+            return 0
+        else:
+            return res
