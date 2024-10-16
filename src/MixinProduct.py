@@ -5,6 +5,8 @@ class MixinProduct:
     quantity: int
 
     def __init__(self, *args):
+        if self.quantity < 1:
+            raise ValueError("Товар с нулевым количеством не может быть добавлен")
         print(self.__repr__())
 
     def __repr__(self):

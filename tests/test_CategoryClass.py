@@ -1,5 +1,6 @@
 import pytest
 
+from exceptions.ProductNotFound import ProductNotFoundException
 from src.CategoryClass import Category
 from src.ProductClass import Product
 
@@ -36,3 +37,13 @@ def test_add_product(category_example):
 
 def test__str__(category_example: Category) -> None:
     assert str(category_example) == "phones, количество продуктов: 10 шт.\n"
+
+
+def test_middle_price(category_example: Category) -> None:
+    assert (category_example.middle_price() - 21.99333) <= 0.00001
+
+
+def test_middle_price_error() -> None:
+    with pytest.raises(ProductNotFoundException):
+        category = Category(name="phones", description="бытовая техника", products=[])
+        category.total_price

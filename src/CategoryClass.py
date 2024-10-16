@@ -1,3 +1,4 @@
+from exceptions.ProductNotFound import ProductNotFoundException
 from src.ProductClass import Product
 
 
@@ -35,3 +36,18 @@ class Category:
             Category.product_count += 1
         else:
             raise TypeError
+
+    @property
+    def total_price(self):
+        if len(self.__products) < 1:
+            raise ProductNotFoundException
+        return sum(product.price for product in self.__products)
+
+    def middle_price(self):
+        try:
+            res = self.total_price / len(self.__products)
+        except Exception as e:
+            print(e)
+            return 0
+        else:
+            return res

@@ -46,6 +46,7 @@ class Product(MixinProduct, BaseProduct):
     quantity: int
 
     def __init__(self, name: str, description: str, price: float, quantity: int):
+
         self.name = name
         self.__price = price
         self.description = description

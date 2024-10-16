@@ -93,3 +93,8 @@ def test__add__lawngrass(lawngrass_example):
 def test__add__lawngrass_error(lawngrass_example, product_example):
     with pytest.raises(TypeError):
         lawngrass_example + product_example
+
+
+def test__init__error():
+    with pytest.raises(ValueError):
+        Product(name="iphone", price=5.99, quantity=0, description="iphone11")
